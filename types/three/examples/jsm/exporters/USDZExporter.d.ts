@@ -1,6 +1,8 @@
 import { Object3D } from "three";
 
 export interface USDZExporterOptions {
+    ar?: { anchoring: { type: 'plane' }, planeAnchoring: { alignment: 'horizontal' | 'vertical' | 'any' } };
+    includeAnchoringProperties?: boolean;
     quickLookCompatible?: boolean;
     maxTextureSize?: number;
 }
@@ -8,5 +10,6 @@ export interface USDZExporterOptions {
 export class USDZExporter {
     constructor();
 
-    parse(scene: Object3D, options?: USDZExporterOptions): Promise<Uint8Array>;
+    parse(scene: Object3D, onLoad: (usdz: Uint8Array) => void, onError?: (err: unknown) => void, options?: USDZExporterOptions);
+    parseAsync(scene: Object3D, options?: USDZExporterOptions): Promise<Uint8Array>;
 }
